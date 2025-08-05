@@ -9,3 +9,6 @@
 
 <img src = "https://github.com/dhakshin18/5493277_sukkadhakshinkumar/blob/main/c%20programming/c%20introduction%20certificate.png" alt = "image">
 
+
+
+<img src = "https://github.com/dhakshin18/5493277_sukkadhakshinkumar/blob/main/c%20programming/intermediate-c.jpg" alt = "image">
