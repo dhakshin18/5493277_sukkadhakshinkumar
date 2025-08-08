@@ -1,0 +1,23 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[] ) throws Exception {
+        Scanner sol = new Scanner(System.in);
+        String x1 = sol.nextLine();
+        String x2 = sol.nextLine();
+        int n= x1.length();
+        StringBuilder solution = new StringBuilder();
+        for(int k=0;k<n;k++){
+            if(x1.charAt(k)==x2.charAt(k)){
+            solution.append(0);
+        }else{
+            solution.append(1);
+        }
+    }
+        System.out.print(solution.toString());
+  }
+}
