@@ -1,0 +1,98 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'isValid' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts STRING s as parameter.
+     */
+
+    public static String isValid(String s) {
+        
+        int ucount =0;
+        int [] f = new int[s.length()];
+        char [] num = s.toCharArray();
+        
+            boolean[] visit = new boolean[num.length];
+            for(int j=0;j<num.length;j++){
+                if(visit[j]) continue;
+                int count =1;
+                for (int k=j+1;k<num.length;k++){
+                    if(num[j] == num[k]){
+                        count ++;
+                        visit[k] = true;
+                    }
+                }
+                
+                f [ucount++] = count;
+            
+        }
+        
+        int minimum = Integer.MAX_VALUE, maximum = Integer.MIN_VALUE;
+        for (int i=0;i<ucount ;i++){
+            minimum = Math.min(minimum, f[i]);
+            maximum = Math.max(maximum, f[i]);
+        }
+        
+        if ( maximum == minimum){
+            return "YES";
+        }
+        
+        int minimum_count = 0, maximum_count =0;
+        
+        for ( int j =0;j<ucount;j++){
+            if(f[j] == minimum){
+                minimum_count ++;
+            }
+            if (f[j] == maximum){
+                maximum_count ++;
+            }
+            
+            
+        }
+        
+        if(minimum ==1 && minimum_count ==1 && maximum_count == ucount -1){
+            return "YES";
+        }
+        
+        if ((maximum - minimum == 1) && maximum_count ==1  ){
+            return "YES";
+        }
+        
+            
+           
+       return "NO";
+    // Write your code here
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String s = bufferedReader.readLine();
+
+        String result = Result.isValid(s);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
