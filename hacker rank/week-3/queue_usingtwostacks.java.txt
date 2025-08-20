@@ -1,0 +1,50 @@
+import java.io.;
+import java.util.;
+
+public class Solution {
+
+    public static void main(String[] args) {
+         Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. 
+        
+        Scanner sz = new Scanner(System.in);
+        int r = sz.nextInt();
+        
+        StackIntegerback_queue = new Stack();
+        StackIntegerfront_queue = new Stack();
+        
+        for (int i=0;ir;i++){
+            int t = sz.nextInt();
+            
+            if(t ==1 ){
+                
+                int w = sz.nextInt();
+                back_queue.push(w);
+            }
+            else if( t == 2){
+                shiftStacks(back_queue,front_queue);
+                if(!front_queue.isEmpty()){
+                    front_queue.pop();
+                }
+                
+            }
+            else if ( t == 3){
+                shiftStacks(back_queue,front_queue);
+                if(!front_queue.isEmpty()){
+                    System.out.println(front_queue.peek());
+                }
+            }
+        }
+    }
+
+
+private static void shiftStacks(StackIntegerback_queue,
+StackIntegerfront_queue){
+    if (front_queue.isEmpty()) {
+            while (!back_queue.isEmpty()) {
+                front_queue.push(back_queue.pop());
+            }
+        }
+    }
+}
+
+    
