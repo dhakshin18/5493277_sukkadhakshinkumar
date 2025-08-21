@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        
+        Scanner sz = new Scanner(System.in);
+        int z = sz.nextInt();
+        sz.nextLine();
+        
+        StringBuilder c = new StringBuilder();
+        Stack<String> his = new Stack<>();
+        
+        for(int i=0;i<z;i++){
+            String[]in = sz.nextLine().split("\\s+");
+            int t = Integer.parseInt(in[0]);
+            
+            switch(t){
+                case 1:
+                his.push(c.toString());
+                c.append(in[1]);
+                break;
+                
+                case 2:
+                his.push(c.toString());
+                int y = Integer.parseInt(in[1]);
+                c.delete(c.length() - y, c.length());
+                break;
+                
+                case 3:
+                int p = Integer.parseInt(in[1]);
+                System.out.println(c.charAt(p-1));
+                break;
+                
+                case 4:
+                if(!his.isEmpty()){
+                    c = new StringBuilder(his.pop());
+                }
+                break;
+            }
+        }
+        
+        sz.close();
+    }
+}
