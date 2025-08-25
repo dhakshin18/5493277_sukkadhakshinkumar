@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        
+        Scanner sd = new Scanner(System.in);
+        PriorityQueue<Integer> h = new PriorityQueue<>();
+        int z = sd.nextInt();
+        while(z -->0){
+            int z1 = sd.nextInt();
+            if(z1 == 1){
+                int number = sd.nextInt();
+                h.add(number);
+            }
+            else if(z1 == 2){
+                int number = sd.nextInt();
+                h.remove(number);
+            }
+            else if(z1 == 3){
+                System.out.println(h.peek());
+            }
+        }
+    }
+}

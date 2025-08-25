@@ -1,0 +1,107 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'legoBlocks' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. INTEGER m
+     */
+     
+     static final int md = 1000000007;
+
+    public static int legoBlocks(int n, int m) {
+        
+        long [] r = new long[m+1];
+        r[0] = 1;
+        
+        
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=4;j++){
+                if(i-j>=0){
+                    r[i] = (r[i] + r[i-j]) % md;
+                }
+            }
+        }
+                
+                long [] t = new long[m+1];
+                for(int k=1;k<=m;k++){
+                    t[k] = mp(r[k],n);
+                }
+                long [] s = new long[m+1];
+                for(int z =1;z<=m;z++){
+                    s[z] = t[z];
+                    for(int y =1;y<z;y++){
+                        s[z] = (s[z] - (s[y] * t[z-y])% md + md) % md;
+                        
+                        
+                        
+                    }
+                }
+            
+            
+             
+        
+        
+       
+        
+        
+    // Write your code here
+    return (int) s[m];
+
+    }
+   private static long mp(long b , int ep){
+    long result =1;
+    while(ep>0){
+        if((ep & 1) == 1) result = (result * b)%md;
+        b = (b * b) % md;
+        ep >>=1;
+    }
+    
+    return result;
+    
+   }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = Integer.parseInt(bufferedReader.readLine().trim());
+
+        IntStream.range(0, t).forEach(tItr -> {
+            try {
+                String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+                int n = Integer.parseInt(firstMultipleInput[0]);
+
+                int m = Integer.parseInt(firstMultipleInput[1]);
+
+                int result = Result.legoBlocks(n, m);
+
+                bufferedWriter.write(String.valueOf(result));
+                bufferedWriter.newLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
