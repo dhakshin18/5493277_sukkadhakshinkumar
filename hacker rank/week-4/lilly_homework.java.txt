@@ -1,0 +1,85 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'lilysHomework' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+
+    public static int lilysHomework(List<Integer> arr) {
+        return Math.min(minSwaps(arr, true), minSwaps(arr, false));
+}
+
+private static int minSwaps(List<Integer> arr, boolean asc) {
+    int z = arr.size();
+    int[][] p = new int[z][2]; // 
+
+    for (int i = 0; i < z; i++) {
+        p[i][0] = arr.get(i);
+        p[i][1] = i;
+    }
+
+    
+    Arrays.sort(p, (a, b) -> asc ? 
+        Integer.compare(a[0], b[0]) : Integer.compare(b[0], a[0]));
+
+    boolean[] v = new boolean[z];
+    int swap = 0;
+
+    for (int i = 0; i < z; i++) {
+        if (v[i] || p[i][1] == i) continue;
+
+        int cSize = 0, j = i;
+        while (!v[j]) {
+            v[j] = true;
+            j = p[j][1];
+            cSize++;
+        }
+        if (cSize > 1) swap += (cSize - 1);
+    }
+
+    return swap;
+
+    // Write your code here
+
+    }
+    
+
+
+}
+
+
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        int result = Result.lilysHomework(arr);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
