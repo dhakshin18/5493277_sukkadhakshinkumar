@@ -1,0 +1,53 @@
+import java.io.*;
+import java.util.*;
+
+class Node1 {
+    int d;
+    Node1 l;
+    Node1 r;
+    Node1(int d1) {
+        this.d = d1;
+        l = null;
+        r = null;
+    }
+}
+
+public class Solution {
+    public static void preO(Node1 rt) {
+        if (rt == null) {
+            return;
+        }
+        System.out.print(rt.d + " ");
+        preO(rt.l);
+        preO(rt.r);
+    }
+
+    public static Node1 ins(Node1 rt1, int data) {
+        if (rt1 == null) {
+            return new Node1(data);
+        } else {
+            Node1 cur;
+            if (data <= rt1.d) {
+                cur = ins(rt1.l, data);
+                rt1.l = cur;
+            } else {
+                cur = ins(rt1.r, data);
+                rt1.r = cur;
+            }
+            return rt1;
+        }
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner scan = new Scanner(System.in);
+        int t = scan.nextInt();
+        Node1 rt2 = null;
+        while (t-- > 0) {
+            int d2 = scan.nextInt();
+            rt2 = ins(rt2, d2);
+        }
+        scan.close();
+        preO(rt2);
+    }
+}

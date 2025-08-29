@@ -1,0 +1,117 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'minimumMoves' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. STRING_ARRAY grid
+     *  2. INTEGER startX
+     *  3. INTEGER startY
+     *  4. INTEGER goalX
+     *  5. INTEGER goalY
+     */
+
+    public static int minimumMoves(List<String> grid, int startX, int startY, int goalX, int goalY) {
+        int z = grid.size();
+        int[][] mov = new int[z][z]; // distance tracker
+        for (int[] row : mov) Arrays.fill(row, -1);
+
+        Queue<int[]> q1 = new LinkedList<>();
+        q1.add(new int[]{startX, startY});
+        mov[startX][startY] = 0;
+
+        
+        while (!q1.isEmpty()) {
+            int[] cur = q1.poll();
+            int x1 = cur[0], y1 = cur[1];
+            int s = mov[x1][y1];
+
+            
+            if (x1 == goalX && y1 == goalY) {
+                return s;
+            }
+
+            
+            for (int i = x1 - 1; i >= 0 && grid.get(i).charAt(y1) == '.'; i--) {
+                if (mov[i][y1] == -1) {
+                    mov[i][y1] = s + 1;
+                    q1.add(new int[]{i, y1});
+                }
+            }
+           
+            for (int i = x1 + 1; i < z && grid.get(i).charAt(y1) == '.'; i++) {
+                if (mov[i][y1] == -1) {
+                    mov[i][y1] = s + 1;
+                    q1.add(new int[]{i, y1});
+                }
+            }
+            
+            for (int j = y1 - 1; j >= 0 && grid.get(x1).charAt(j) == '.'; j--) {
+                if (mov[x1][j] == -1) {
+                    mov[x1][j] = s + 1;
+                    q1.add(new int[]{x1, j});
+                }
+            }
+            
+            for (int j = y1 + 1; j < z && grid.get(x1).charAt(j) == '.'; j++) {
+                if (mov[x1][j] == -1) {
+                    mov[x1][j] = s + 1;
+                    q1.add(new int[]{x1, j});
+                }
+            }
+        }
+        return -1; 
+    // Write your code here
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String> grid = IntStream.range(0, n).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .collect(toList());
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int startX = Integer.parseInt(firstMultipleInput[0]);
+
+        int startY = Integer.parseInt(firstMultipleInput[1]);
+
+        int goalX = Integer.parseInt(firstMultipleInput[2]);
+
+        int goalY = Integer.parseInt(firstMultipleInput[3]);
+
+        int result = Result.minimumMoves(grid, startX, startY, goalX, goalY);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
