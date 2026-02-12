@@ -1,0 +1,19 @@
+From dfab7d3734c3b73032b08f0492ff2695bcc562e1 Mon Sep 17 00:00:00 2001
+From: Sukka Dhakshin Kumar <sukkadhakshin@gmail.com>
+Date: Thu, 12 Feb 2026 20:57:07 +0530
+Subject: [PATCH 3/3] commited from feature1
+
+---
+ Git/app.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Git/app.txt b/Git/app.txt
+index 023e8ec..166cd00 100644
+--- a/Git/app.txt
++++ b/Git/app.txt
+@@ -1 +1 @@
+-this is in main branch
++Hello from main branch
+-- 
+2.53.0.windows.1
+
